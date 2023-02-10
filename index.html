@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        $("#form").submit(function(e) {
+            e.preventDefault();
+            const code = {
+                37 : "Stadium Piece",
+                "Nancy Holt": "Stone Enclosure Rock Rings"
+            }
+            const sculpturesCode = ["Nancy Holt", "37"];
+            const sculptures = ["Stone Enclosure Rock Rings", "Stadium Piece"];
+            var imageInput = $("#imageInput").val();
+            var imageInput2 = $("#imageInput2").val();
+            var count = 1;
+            if(sculptures.includes(imageInput) && sculpturesCode.includes(imageInput2)){
+              var imageSrc = "images/" + code[imageInput2] + ".jpg";
+              if(code[imageInput2] === "Stone Enclosure Rock Rings"){
+                $("#displayedImage").attr("src", imageSrc);
+                $("#imageContainer").removeClass("d-none");
+                $("#message").html("<p>Nancy Holt, 1977-78.Brown mountain stone. 10'h. with outer ring 40' d. and inner ring 20' d. Holt's Stone Enclosure: Rock Rings (1977-78) is solidly on the earth and made of rock from our geological past</p>"); 
+                $("#message1").html("");
+              }
+              
+              if(code[imageInput2] === "Stadium Piece"){
+                $("#displayedImage").attr("src", "images/oldmain.gif");
+                $("#imageContainer").removeClass("d-none");
+                $("#message").html("I hope you had a great time visiting the unique sculptures on campus. Try to determine which building is featured in the GIF above."); 
+                $("#message1").html("");
+              }
+              
+              if(code[imageInput2] != "Stadium Piece"){
+                setTimeout(function() {
+                  imageSrc = "images/" + sculptures[count] + ".jpg"; 
+                  $("#displayedImage").attr("src", imageSrc);
+                  $("#message").html("");
+                  $(".quest").html("What is the name of the sculpture?");
+                  $(".quest1").html("How many steps are there?");
+                  count++;
+                }, 5000);
+              }
+            }
+            else{
+                $("#message1").html("Sorry, incorrect please try again");
+            }
+        });
+
+        $("#toggle").click(function(){
+          $("#navbar").slideToggle();
+        });
+      });
+    </script>
+    <title>Campus Sculptures</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">WWU Sculptures</a>
+      <button class="navbar-toggler" type="button" id="toggle">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navbar" class="collapse navbar-collapse">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="answer.html">Answers</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="bg-primary py-5">
+        <div class="container h-100">
+          <div class="row h-100 align-items-center">
+            <div class="col-lg-12">
+              <h1 class="display-4 text-white mt-5 mb-2 text-center">Sculptures On Campus</h1>
+            </div>
+          </div>
+        </div>
+    </header>
+
+     <div class="container my-5">
+        <form id="form">
+          <div class="form-group">
+            <div id="imageContainer">
+              <img id="displayedImage" class="w-100 p-3" src="images/rock ring1.jpg" alt="Image">
+            </div>
+            <p id="message" class="text-danger"></p>
+            <label for=""></label>
+            <label for="imageInput" class="quest">What sculpture on campus is closest to this image please type its name below:</label>
+            <input type="text" class="form-control" id="imageInput" placeholder="Sculpture Name">
+            <label for="imageInput" class="quest1">Who is the creator of this sculpture? </label>
+            <input type="text" class="form-control" id="imageInput2">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p id="message1" class="text-danger"></p>
+      </div>
+  </body>
+</html>
